@@ -14,11 +14,10 @@
 - ⚡ Fun fact: Billards🎱 Badminton🏸 LOL🎮 Coding💻  
 
 ### 💻Programming languages and tools: 
-
-<p>
-<code><img width="15%" src="https://www.vectorlogo.zone/logos/python/python-ar21.svg"></code>
-<code><img width="15%" src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg"></code>
-<code><img width="15%" src="https://www.vectorlogo.zone/logos/ubuntu/ubuntu-ar21.svg"></code>
-<code><img width="15%" src="https://www.vectorlogo.zone/logos/vim/vim-ar21.svg"></code>
-<code><img width="15%" src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg"></code>
-</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+  <img width="15%" src="https://www.vectorlogo.zone/logos/python/python-ar21.svg">
+  <img width="15%" src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg">
+  <img width="15%" src="https://www.vectorlogo.zone/logos/ubuntu/ubuntu-ar21.svg">
+  <img width="15%" src="https://www.vectorlogo.zone/logos/vim/vim-ar21.svg">
+  <img width="15%" src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg">
+</div>
