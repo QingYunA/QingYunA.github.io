@@ -2,7 +2,7 @@
 
 ::github{repo="QingYunA/QingYunA"}
 
-<img align="right" alt="img" src="https://s2.loli.net/2024/03/14/Jrd3yKiRFjaXD8Y.gif" width="50%" height="auto" />
+<img align="right" alt="img" src="https://s2.loli.net/2024/03/14/Jrd3yKiRFjaXD8Y.gif" width="40%" height="auto" />
 
 - 👨‍💻 **I'm Yunqing Chen**, currently engaged in LLM at Sangfor Technologies Inc.
 - 🔭 I’m currently working on **LLM Agent**
@@ -13,7 +13,7 @@
   
 - ⚡ Fun fact: Billards🎱 Badminton🏸 LOL🎮 Coding💻  
 
-### :computer: Programming languages and tools: 
+### 💻Programming languages and tools: 
 <p>
 <code><img width="15%" src="https://www.vectorlogo.zone/logos/python/python-ar21.svg"></code>
 <code><img width="15%" src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg"></code>
@@ -22,11 +22,3 @@
 <!-- <code><img width="15%" src="https://www.vectorlogo.zone/logos/visualstudio_code/visualstudio_code-ar21.svg"></code> -->
 <code><img width="15%" src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg"></code>
 </p>
-
-![](https://github-readme-stats.vercel.app/api?username=QingYunA&show_icons=true&hide_border=true)
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=QingYunA)
-
-![](https://komarev.com/ghpvc/?username=QingYunA&style=flat-square)
-
-![亮色](https://raw.githubusercontent.com/QingYunA/QingYunA/output/github-contribution-grid-snake.svg)
-
