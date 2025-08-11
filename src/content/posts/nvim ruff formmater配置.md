@@ -1,6 +1,6 @@
 ---
 title: Nvim中配置Ruff Formatter（Python）
-published: 2025-08-11
+published: 2024-04-22
 description: Nvim中配置Ruff Formatter（Python）
 tags: [Nvim, Ruff, Formatter, Python]
 category: 学习
