@@ -9,7 +9,7 @@
 
 - 📫 How to reach me: Serein7z@163.com,
   
-- 💬 my social media: [知乎](https://www.zhihu.com/people/chen-yun-qing-76), [Blog](https://qingyuna.github.io/)
+- 💬 my social media: [知乎](https://www.zhihu.com/people/chen-yun-qing-76), [Blog](https://yunqing.org/)
   
 - ⚡ Fun fact: Billards🎱 Badminton🏸 LOL🎮 Coding💻  
 
