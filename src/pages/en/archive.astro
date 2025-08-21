@@ -1,0 +1,29 @@
+---
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { getCollection } from "astro:content";
+import ArchivePanel from "../../components/ArchivePanel.svelte";
+
+// Get English posts for archive
+const posts = await getCollection("posts/en", ({ data }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+const sortedPosts = posts.sort((a, b) => {
+	const dateA = new Date(a.data.published);
+	const dateB = new Date(b.data.published);
+	return dateA > dateB ? -1 : 1;
+}).map((post) => ({
+	slug: post.slug,
+	data: post.data,
+}));
+---
+
+<MainGridLayout title="Archive" lang="en">
+	<div class="flex w-full rounded-[var(--radius-large)] justify-center">
+		<div class="card-base z-10 px-9 py-6 relative w-full">
+			<div class="relative onload-animation">
+				<ArchivePanel posts={sortedPosts} client:load />
+			</div>
+		</div>
+	</div>
+</MainGridLayout>

@@ -32,6 +32,11 @@ enum I18nKey {
 	author = "author",
 	publishedAt = "publishedAt",
 	license = "license",
+
+	// Ko-fi support section
+	supportTitle = "supportTitle",
+	supportDescription = "supportDescription",
+	supportButton = "supportButton",
 }
 
 export default I18nKey;

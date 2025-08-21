@@ -2,7 +2,14 @@
 
 import { profileConfig } from "../config";
 import { url } from "../utils/url-utils";
+import { i18n } from "../i18n/translation";
+import I18nKey from "../i18n/i18nKey";
 
+interface Props {
+	lang?: string;
+}
+
+const lang = Astro.props.lang || 'zh_CN';
 const currentYear = new Date().getFullYear();
 ---
 
@@ -12,8 +19,8 @@ const currentYear = new Date().getFullYear();
 <!-- Ko-fi Support Section -->
 <div class="transition bg-gradient-to-r from-[oklch(95%_0.02_var(--hue))] to-[oklch(97%_0.01_var(--hue))] dark:from-[oklch(15%_0.02_var(--hue))] dark:to-[oklch(18%_0.01_var(--hue))] rounded-2xl p-6 mb-8 flex flex-col items-center justify-center border border-[oklch(90%_0.02_var(--hue))] dark:border-[oklch(25%_0.02_var(--hue))]">
     <div class="text-center mb-4">
-        <div class="text-lg font-medium text-[var(--primary)] mb-2">☕ 喜欢我的文章？</div>
-        <div class="text-sm text-neutral-600 dark:text-neutral-400 mb-4">如果我的内容对你有帮助，欢迎请我喝杯咖啡！</div>
+        <div class="text-lg font-medium text-[var(--primary)] mb-2">{i18n(I18nKey.supportTitle, lang)}</div>
+        <div class="text-sm text-neutral-600 dark:text-neutral-400 mb-4">{i18n(I18nKey.supportDescription, lang)}</div>
         <a href="https://ko-fi.com/yunqing_love" target="_blank" 
            class="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5E5B] hover:bg-[#FF4E4B] text-white font-medium rounded-full transition-all duration-200 active:scale-95 shadow-lg hover:shadow-xl">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -22,7 +29,7 @@ const currentYear = new Date().getFullYear();
                 <circle cx="12.5" cy="12.5" r="1.5"/>
                 <circle cx="17.5" cy="12.5" r="1.5"/>
             </svg>
-            在 Ko-fi 上支持我
+            {i18n(I18nKey.supportButton, lang)}
         </a>
     </div>
 </div>

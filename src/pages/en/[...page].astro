@@ -1,15 +1,14 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
-import Pagination from "../components/control/Pagination.astro";
-import PostPage from "../components/PostPage.astro";
-import { PAGE_SIZE } from "../constants/constants";
-import MainGridLayout from "../layouts/MainGridLayout.astro";
-import { getSortedPosts } from "../utils/content-utils";
+import Pagination from "../../components/control/Pagination.astro";
+import PostPage from "../../components/PostPage.astro";
+import { PAGE_SIZE } from "../../constants/constants";
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-	// Get Chinese posts from the new structure
-	const posts = await getCollection("posts/zh", ({ data }) => {
+	// Get English posts from the new structure
+	const posts = await getCollection("posts/en", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 	
@@ -31,14 +30,12 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 	return paginate(sorted, { pageSize: PAGE_SIZE });
 }) satisfies GetStaticPaths;
-// https://github.com/withastro/astro/issues/6507#issuecomment-1489916992
 
 const { page } = Astro.props;
-
 const len = page.data.length;
 ---
 
-<MainGridLayout>
+<MainGridLayout title="Blog" lang="en">
     <PostPage page={page}></PostPage>
     <Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`}></Pagination>
 </MainGridLayout>

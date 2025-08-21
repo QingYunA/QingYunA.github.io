@@ -1,11 +1,23 @@
 ---
+import { getCollection } from "astro:content";
 import ArchivePanel from "@components/ArchivePanel.svelte";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { getSortedPostsList } from "../utils/content-utils";
 
-const sortedPostsList = await getSortedPostsList();
+// Get Chinese posts for archive
+const posts = await getCollection("posts/zh", ({ data }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+const sortedPostsList = posts.sort((a, b) => {
+	const dateA = new Date(a.data.published);
+	const dateB = new Date(b.data.published);
+	return dateA > dateB ? -1 : 1;
+}).map((post) => ({
+	slug: post.slug,
+	data: post.data,
+}));
 ---
 
 <MainGridLayout title={i18n(I18nKey.archive)}>

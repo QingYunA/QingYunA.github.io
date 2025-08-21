@@ -15,6 +15,9 @@ export type SiteConfig = {
 		| "vi"
 		| "tr"
 		| "id";
+	
+	// Optional: supported languages for multi-language site
+	supportedLangs?: string[];
 
 	themeColor: {
 		hue: number;

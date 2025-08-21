@@ -1,0 +1,36 @@
+---
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { getEntry } from "astro:content";
+import Markdown from "../../components/misc/Markdown.astro";
+
+const aboutPost = await getEntry("spec", "about");
+---
+
+<MainGridLayout title="About" lang="en">
+	<div class="flex w-full rounded-[var(--radius-large)] justify-center">
+		<div class="card-base z-10 px-6 py-4 relative w-full ">
+			<Markdown class="mt-2">
+				# About Me
+
+				Welcome to my blog! I'm Yunqing, a passionate developer and writer.
+
+				## What I Do
+
+				I write about:
+				- Technology and programming
+				- AI and machine learning
+				- Personal experiences and insights
+				- Tutorials and guides
+
+				## Get in Touch
+
+				Feel free to connect with me through:
+				- GitHub: [@qingyuna](https://github.com/qingyuna)
+				- Zhihu: [My Profile](https://www.zhihu.com/people/chen-yun-qing-76)
+				- Ko-fi: [Support me](https://ko-fi.com/yunqing_love)
+
+				Thank you for visiting my blog!
+			</Markdown>
+		</div>
+	</div>
+</MainGridLayout>

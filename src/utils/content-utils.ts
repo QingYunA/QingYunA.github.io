@@ -51,8 +51,9 @@ export type Tag = {
 	count: number;
 };
 
-export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+export async function getTagList(lang: string = 'zh_CN'): Promise<Tag[]> {
+	const collection = lang === 'en' ? "posts/en" : "posts/zh";
+	const allBlogPosts = await getCollection(collection, ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 
@@ -78,14 +79,15 @@ export type Category = {
 	url: string;
 };
 
-export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+export async function getCategoryList(lang: string = 'zh_CN'): Promise<Category[]> {
+	const collection = lang === 'en' ? "posts/en" : "posts/zh";
+	const allBlogPosts = await getCollection(collection, ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 	const count: { [key: string]: number } = {};
 	allBlogPosts.map((post: { data: { category: string | null } }) => {
 		if (!post.data.category) {
-			const ucKey = i18n(I18nKey.uncategorized);
+			const ucKey = i18n(I18nKey.uncategorized, lang);
 			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
 			return;
 		}

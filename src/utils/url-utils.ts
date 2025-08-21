@@ -12,7 +12,12 @@ function joinUrl(...parts: string[]): string {
 	return joined.replace(/\/+/g, "/");
 }
 
-export function getPostUrlBySlug(slug: string): string {
+export function getPostUrlBySlug(slug: string, lang?: string): string {
+	// If language is provided, use it to determine the path
+	if (lang === 'en') {
+		return url(`/en/posts/${slug}/`);
+	}
+	// Default to Chinese path (no prefix)
 	return url(`/posts/${slug}/`);
 }
 

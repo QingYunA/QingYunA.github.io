@@ -42,7 +42,22 @@ export function getTranslation(lang: string): Translation {
 	return map[lang.toLowerCase()] || defaultTranslation;
 }
 
-export function i18n(key: I18nKey): string {
-	const lang = siteConfig.lang || "en";
-	return getTranslation(lang)[key];
+export function i18n(key: I18nKey, lang?: string): string {
+	// Try to get language from parameter, URL, or fallback to config
+	let currentLang = lang;
+	
+	if (!currentLang && typeof window !== 'undefined') {
+		const path = window.location.pathname;
+		if (path.startsWith('/en/')) {
+			currentLang = 'en';
+		} else {
+			currentLang = 'zh_CN';
+		}
+	}
+	
+	if (!currentLang) {
+		currentLang = siteConfig.lang || "zh_CN";
+	}
+	
+	return getTranslation(currentLang)[key];
 }

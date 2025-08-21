@@ -29,6 +29,14 @@ export default defineConfig({
 	site: "https://yunqing.org/",
 	// base: "/",
 	trailingSlash: "always",
+	// Multi-language support
+	i18n: {
+		defaultLocale: "zh",
+		locales: ["zh", "en"],
+		routing: {
+			prefixDefaultLocale: false
+		}
+	},
 	integrations: [
 		tailwind({
 			nesting: true,
