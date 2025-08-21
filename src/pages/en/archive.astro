@@ -22,7 +22,7 @@ const sortedPosts = posts.sort((a, b) => {
 	<div class="flex w-full rounded-[var(--radius-large)] justify-center">
 		<div class="card-base z-10 px-9 py-6 relative w-full">
 			<div class="relative onload-animation">
-				<ArchivePanel posts={sortedPosts} client:load />
+				<ArchivePanel sortedPosts={sortedPosts} client:only="svelte" />
 			</div>
 		</div>
 	</div>
