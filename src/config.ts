@@ -66,6 +66,11 @@ export const profileConfig: ProfileConfig = {
 			name: "知乎",
 			icon: "fa6-brands:zhihu",
 			url: "https://www.zhihu.com/people/chen-yun-qing-76"
+		},
+		{
+			name: "Ko-fi",
+			icon: "simple-icons:kofi",
+			url: "https://ko-fi.com/yunqing_love"
 		}
 	],
 };
