@@ -1,0 +1,72 @@
+---
+import { profileConfig, siteConfig } from "../../config";
+
+interface Props {
+	lang?: string;
+}
+
+const lang = Astro.props.lang || 'zh_CN';
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": siteConfig.title,
+	"description": siteConfig.subtitle,
+	"url": Astro.site?.href,
+	"inLanguage": lang === 'en' ? 'en-US' : 'zh-CN',
+	"author": {
+		"@type": "Person",
+		"name": profileConfig.name,
+		"url": Astro.site?.href,
+		"sameAs": profileConfig.links.map(link => link.url)
+	},
+	"publisher": {
+		"@type": "Organization",
+		"name": siteConfig.title,
+		"url": Astro.site?.href,
+	},
+	"potentialAction": {
+		"@type": "SearchAction",
+		"target": {
+			"@type": "EntryPoint",
+			"urlTemplate": `${Astro.site?.href}?search={search_term_string}`
+		},
+		"query-input": "required name=search_term_string"
+	}
+};
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": siteConfig.title,
+	"url": Astro.site?.href,
+	"logo": `${Astro.site?.href}favicon/favicon-light-192.png`,
+	"sameAs": profileConfig.links.map(link => link.url),
+	"founder": {
+		"@type": "Person",
+		"name": profileConfig.name
+	}
+};
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": lang === 'en' ? "Home" : "首页",
+			"item": Astro.site?.href
+		}
+	]
+};
+---
+
+<!-- Website Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+
+<!-- Organization Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
+
+<!-- Breadcrumb Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>

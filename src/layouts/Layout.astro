@@ -4,6 +4,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import ConfigCarrier from "@components/ConfigCarrier.astro";
+import WebsiteSchema from "@components/SEO/WebsiteSchema.astro";
 import { profileConfig, siteConfig } from "@/config";
 import {
 	AUTO_MODE,
@@ -83,21 +84,50 @@ const bannerOffset =
 		<meta charset="UTF-8" />
 		<meta name="description" content={description || pageTitle}>
 		<meta name="author" content={profileConfig.name}>
+		<meta name="keywords" content="blog, 博客, technology, 技术, programming, 编程, AI, machine learning, web development">
+		
+		<!-- Canonical URL -->
+		<link rel="canonical" href={Astro.url}>
+		
+		<!-- Language alternatives for SEO -->
+		{lang === 'en' ? (
+			<>
+				<link rel="alternate" hreflang="zh" href={Astro.url.toString().replace('/en/', '/')}>
+				<link rel="alternate" hreflang="en" href={Astro.url}>
+				<link rel="alternate" hreflang="x-default" href={Astro.url.toString().replace('/en/', '/')}>
+			</>
+		) : (
+			<>
+				<link rel="alternate" hreflang="zh" href={Astro.url}>
+				<link rel="alternate" hreflang="en" href={`${Astro.url}`.replace(/\/$/, '') + '/en/'}>
+				<link rel="alternate" hreflang="x-default" href={Astro.url}>
+			</>
+		)}
 
+		<!-- Open Graph / Facebook -->
 		<meta property="og:site_name" content={siteConfig.title}>
 		<meta property="og:url" content={Astro.url}>
 		<meta property="og:title" content={pageTitle}>
 		<meta property="og:description" content={description || pageTitle}>
+		<meta property="og:locale" content={lang === 'en' ? 'en_US' : 'zh_CN'}>
 		{setOGTypeArticle ? (
         <meta property="og:type" content="article" />
         ) : (
         <meta property="og:type" content="website" />
         )}
+		{banner && <meta property="og:image" content={new URL(banner, Astro.site).href}>}
 
+		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image">
 		<meta property="twitter:url" content={Astro.url}>
 		<meta name="twitter:title" content={pageTitle}>
 		<meta name="twitter:description" content={description || pageTitle}>
+		{banner && <meta name="twitter:image" content={new URL(banner, Astro.site).href}>}
+		
+		<!-- Additional SEO meta tags -->
+		<meta name="robots" content="index, follow">
+		<meta name="googlebot" content="index, follow">
+		<meta name="theme-color" content="#6366f1">
 
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
@@ -144,6 +174,9 @@ const bannerOffset =
 
 
 		<slot name="head"></slot>
+
+		<!-- SEO Structured Data -->
+		<WebsiteSchema lang={lang} />
 
 		<!-- Umami Analytics -->
 		<script defer src="https://cloud.umami.is/script.js" data-website-id="3550ef2b-0451-4a32-abdd-f8b892525655"></script>

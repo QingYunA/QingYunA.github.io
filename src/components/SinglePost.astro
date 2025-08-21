@@ -28,10 +28,33 @@ const jsonLd = {
 		name: profileConfig.name,
 		url: Astro.site,
 	},
+	publisher: {
+		"@type": "Organization",
+		name: siteConfig.title,
+		url: Astro.site,
+	},
 	datePublished: formatDateToYYYYMMDD(entry.data.published),
+	dateModified: entry.data.updated ? formatDateToYYYYMMDD(entry.data.updated) : formatDateToYYYYMMDD(entry.data.published),
 	inLanguage: entry.data.lang
 		? entry.data.lang.replace("_", "-")
 		: siteConfig.lang.replace("_", "-"),
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": Astro.url.href
+	},
+	url: Astro.url.href,
+	...(entry.data.image && {
+		image: {
+			"@type": "ImageObject",
+			url: new URL(entry.data.image, Astro.site).href
+		}
+	}),
+	...(entry.data.category && {
+		genre: entry.data.category,
+		about: entry.data.category
+	}),
+	wordCount: remarkPluginFrontmatter.words,
+	timeRequired: `PT${remarkPluginFrontmatter.minutes}M`,
 };
 ---
 <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

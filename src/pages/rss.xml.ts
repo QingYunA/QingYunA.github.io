@@ -1,4 +1,5 @@
 import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
 import { getSortedPosts } from "@utils/content-utils";
 import { url } from "@utils/url-utils";
 import type { APIContext } from "astro";
@@ -17,7 +18,16 @@ function stripInvalidXmlChars(str: string): string {
 }
 
 export async function GET(context: APIContext) {
-	const blog = await getSortedPosts();
+	// Get Chinese posts for the main RSS feed
+	const zhPosts = await getCollection("posts/zh", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+	
+	const blog = zhPosts.sort((a, b) => {
+		const dateA = new Date(a.data.published);
+		const dateB = new Date(b.data.published);
+		return dateA > dateB ? -1 : 1;
+	});
 
 	return rss({
 		title: siteConfig.title,

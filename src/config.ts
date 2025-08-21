@@ -9,7 +9,7 @@ import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
 	title: "Yunqing",
-	subtitle: "Blog",
+	subtitle: "技术博客 | 分享编程、AI和Web开发经验",
 	lang: "zh_CN", // Default language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	// Supported languages for multi-language site
 	supportedLangs: ["zh_CN", "en"], // Add more languages as needed
