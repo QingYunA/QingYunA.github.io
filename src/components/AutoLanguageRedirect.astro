@@ -1,0 +1,154 @@
+---
+// 自动语言检测和重定向组件
+interface Props {
+	currentPath?: string;
+}
+
+const { currentPath = "/" } = Astro.props;
+---
+
+<script is:inline define:vars={{ currentPath }}>
+	(function() {
+		// 支持的语言映射
+		const SUPPORTED_LANGUAGES = {
+			'zh': 'zh_CN',
+			'zh-CN': 'zh_CN', 
+			'zh-cn': 'zh_CN',
+			'zh-Hans': 'zh_CN',
+			'zh-hans': 'zh_CN',
+			'en': 'en',
+			'en-US': 'en',
+			'en-us': 'en',
+			'en-GB': 'en',
+			'en-gb': 'en'
+		};
+
+		const DEFAULT_LANG = 'zh_CN';
+		const PREFERENCE_KEY = 'preferred-language';
+		
+		// 检查是否已经设置了用户偏好
+		function getUserPreference() {
+			try {
+				return localStorage.getItem(PREFERENCE_KEY);
+			} catch (e) {
+				return null;
+			}
+		}
+
+		// 保存用户语言偏好
+		function saveUserPreference(lang) {
+			try {
+				localStorage.setItem(PREFERENCE_KEY, lang);
+			} catch (e) {
+				// localStorage 不可用时静默失败
+			}
+		}
+
+		// 获取浏览器语言偏好
+		function getBrowserLanguage() {
+			const languages = navigator.languages || [navigator.language];
+			
+			for (const lang of languages) {
+				// 直接匹配
+				if (SUPPORTED_LANGUAGES[lang]) {
+					return SUPPORTED_LANGUAGES[lang];
+				}
+				
+				// 匹配语言代码的前缀（例如 'zh-TW' -> 'zh'）
+				const langPrefix = lang.split('-')[0];
+				if (SUPPORTED_LANGUAGES[langPrefix]) {
+					return SUPPORTED_LANGUAGES[langPrefix];
+				}
+			}
+			
+			return DEFAULT_LANG;
+		}
+
+		// 获取当前页面的语言
+		function getCurrentLanguage() {
+			const path = window.location.pathname;
+			if (path.startsWith('/en/')) {
+				return 'en';
+			}
+			return 'zh_CN';
+		}
+
+		// 检查是否需要重定向
+		function shouldRedirect() {
+			// 如果用户已经手动选择过语言，不自动重定向
+			const userPreference = getUserPreference();
+			if (userPreference) {
+				return false;
+			}
+
+			// 如果是首次访问首页，检查是否需要重定向
+			const path = window.location.pathname;
+			const isHomePage = path === '/' || path === '/index.html';
+			
+			if (!isHomePage) {
+				return false;
+			}
+
+			const browserLang = getBrowserLanguage();
+			const currentLang = getCurrentLanguage();
+			
+			return browserLang !== currentLang;
+		}
+
+		// 执行重定向
+		function performRedirect() {
+			const browserLang = getBrowserLanguage();
+			const currentPath = window.location.pathname;
+			
+			let newPath;
+			if (browserLang === 'en') {
+				// 重定向到英文版本
+				newPath = currentPath === '/' ? '/en/' : `/en${currentPath}`;
+			} else {
+				// 重定向到中文版本（默认）
+				newPath = currentPath.replace(/^\/en/, '') || '/';
+			}
+
+			// 保留查询参数和锚点
+			const search = window.location.search;
+			const hash = window.location.hash;
+			
+			window.location.href = newPath + search + hash;
+		}
+
+		// 监听语言切换按钮的点击事件
+		function setupLanguageSwitchListener() {
+			// 延迟执行，确保页面完全加载
+			setTimeout(() => {
+				const languageSwitcher = document.querySelector('.language-switch');
+				if (languageSwitcher) {
+					languageSwitcher.addEventListener('click', function(e) {
+						const target = e.target.closest('[data-lang]');
+						if (target) {
+							const selectedLang = target.getAttribute('data-lang');
+							saveUserPreference(selectedLang);
+						}
+					});
+				}
+			}, 1000);
+		}
+
+		// 主执行函数
+		function init() {
+			// 设置语言切换监听器
+			setupLanguageSwitchListener();
+			
+			// 检查是否需要自动重定向
+			if (shouldRedirect()) {
+				performRedirect();
+			}
+		}
+
+		// 页面加载完成后执行
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', init);
+		} else {
+			init();
+		}
+	})();
+</script>

@@ -20,20 +20,25 @@ const className = Astro.props.class;
 const lang = Astro.props.lang || 'zh_CN';
 
 // Create dynamic link presets based on current language
-const createLinkPresets = (lang: string) => ({
-	[LinkPreset.Home]: {
-		name: i18n(I18nKey.home, lang),
-		url: "/",
-	},
-	[LinkPreset.About]: {
-		name: i18n(I18nKey.about, lang),
-		url: "/about/",
-	},
-	[LinkPreset.Archive]: {
-		name: i18n(I18nKey.archive, lang),
-		url: "/archive/",
-	},
-});
+const createLinkPresets = (lang: string) => {
+	const isEnglish = lang === 'en';
+	const urlPrefix = isEnglish ? '/en' : '';
+	
+	return {
+		[LinkPreset.Home]: {
+			name: i18n(I18nKey.home, lang),
+			url: isEnglish ? "/en/" : "/",
+		},
+		[LinkPreset.About]: {
+			name: i18n(I18nKey.about, lang),
+			url: `${urlPrefix}/about/`,
+		},
+		[LinkPreset.Archive]: {
+			name: i18n(I18nKey.archive, lang),
+			url: `${urlPrefix}/archive/`,
+		},
+	};
+};
 
 const dynamicLinkPresets = createLinkPresets(lang);
 

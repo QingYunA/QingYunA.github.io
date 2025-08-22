@@ -24,6 +24,13 @@
     // Switch language
     function switchLanguage(langCode: string) {
         if (typeof window !== 'undefined') {
+            // Save user preference to localStorage
+            try {
+                localStorage.setItem('preferred-language', langCode);
+            } catch (e) {
+                // localStorage not available, continue anyway
+            }
+            
             const currentPath = getCurrentPath();
             let newPath = currentPath;
             
@@ -59,7 +66,7 @@
     }
 </script>
 
-<div class="relative inline-block text-left">
+<div class="relative inline-block text-left language-switch">
     <button 
         type="button" 
         class="btn-regular rounded-lg h-10 w-10 active:scale-90 flex items-center justify-center"
@@ -83,6 +90,7 @@
                     <button
                         class="flex items-center w-full px-4 py-2 text-sm hover:bg-[var(--btn-regular-bg)] transition-colors duration-200 {lang.code === currentLang ? 'text-[var(--primary)] font-medium' : 'text-[var(--content-text-color)]'}"
                         role="menuitem"
+                        data-lang={lang.code}
                         on:click={() => {
                             switchLanguage(lang.code);
                             closeDropdown();

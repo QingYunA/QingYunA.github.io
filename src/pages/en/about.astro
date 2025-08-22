@@ -1,35 +1,51 @@
 ---
 import MainGridLayout from "../../layouts/MainGridLayout.astro";
-import { getEntry } from "astro:content";
 import Markdown from "../../components/misc/Markdown.astro";
-
-const aboutPost = await getEntry("spec", "about");
 ---
 
 <MainGridLayout title="About" lang="en">
-	<div class="flex w-full rounded-[var(--radius-large)] justify-center">
-		<div class="card-base z-10 px-6 py-4 relative w-full ">
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-9 py-6 relative w-full ">
 			<Markdown class="mt-2">
-				# About Me
+				## 👋 Hi there
 
-				Welcome to my blog! I'm Yunqing, a passionate developer and writer.
+				<img align="right" alt="Profile animation" src="https://s2.loli.net/2024/03/14/Jrd3yKiRFjaXD8Y.gif" width="40%" height="auto" />
 
-				## What I Do
+				- 👨‍💻 **I'm Yunqing Chen**, currently engaged in LLM research at Sangfor Technologies Inc.
+				- 🔭 I'm currently working on **LLM Agent** development
+				- 📫 How to reach me: Serein7z@163.com
+				- 💬 My social media: [Zhihu](https://www.zhihu.com/people/chen-yun-qing-76), [Blog](https://yunqing.org/)
+				- ⚡ Fun fact: Billiards🎱 Badminton🏸 LOL🎮 Coding💻
 
-				I write about:
-				- Technology and programming
-				- AI and machine learning
-				- Personal experiences and insights
-				- Tutorials and guides
+				### 💻 Programming Languages and Tools:
 
-				## Get in Touch
+				<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+				  <img width="15%" src="https://www.vectorlogo.zone/logos/python/python-ar21.svg" alt="Python">
+				  <img width="15%" src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg" alt="PyTorch">
+				  <img width="15%" src="https://www.vectorlogo.zone/logos/ubuntu/ubuntu-ar21.svg" alt="Ubuntu">
+				  <img width="15%" src="https://www.vectorlogo.zone/logos/vim/vim-ar21.svg" alt="Vim">
+				  <img width="15%" src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg" alt="Git">
+				</div>
 
-				Feel free to connect with me through:
-				- GitHub: [@qingyuna](https://github.com/qingyuna)
-				- Zhihu: [My Profile](https://www.zhihu.com/people/chen-yun-qing-76)
-				- Ko-fi: [Support me](https://ko-fi.com/yunqing_love)
+				### 🚀 What I Write About
 
-				Thank you for visiting my blog!
+				On this blog, you'll find articles about:
+				- **Large Language Models (LLMs)** and AI research
+				- **Python programming** and best practices
+				- **Machine Learning** techniques and applications
+				- **Web development** with modern frameworks
+				- **Technical tutorials** and coding guides
+				- **Personal experiences** in software development
+
+				### 🎯 Current Focus
+
+				I'm passionate about advancing the field of artificial intelligence, particularly in:
+				- Building intelligent agents with LLMs
+				- Exploring new applications of machine learning
+				- Contributing to open-source projects
+				- Sharing knowledge through technical writing
+
+				Thank you for visiting my blog! Feel free to connect with me through any of the social media links above.
 			</Markdown>
 		</div>
 	</div>
