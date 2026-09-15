@@ -1,4 +1,4 @@
-# QingYun's Personal Portfolio · 个人主页
+# Cyan's Personal Portfolio · 云辰的个人主页
 
 > 👨‍💻 算法工程师 | 独立开发者 | 出海中 🚢  
 > ✍️ 梦想是改变世界  
@@ -9,9 +9,16 @@
 
 ---
 
-### ✨ Features
-- **One-Screen & No-Scroll**: Designed for desktop 100vh viewport without mouse scroll wheel needed. Responsive fluid layout on mobile.
-- **Bilingual (i18n)**: Seamless zero-reload English & Chinese toggle.
-- **Dark & Light Modes**: Native CSS variable-driven dark/light theme toggle.
-- **Zero-Dependency**: 100% standalone native HTML/CSS/SVG, zero npm, zero external CDN.
-- **GitHub Pages Ready**: Instant deployment via GitHub Pages root.
+### 🛠️ Tech Stack & Template
+- **Template**: Built with the official [magicuidesign/portfolio](https://github.com/magicuidesign/portfolio) template.
+- **Framework**: Next.js 16 + React 19 + TypeScript.
+- **Styling & UI**: Tailwind CSS v4 + shadcn/ui + Magic UI (Interactive Dock, FlickeringGrid, BlurFade).
+- **Deployment**: Automatic static export deployed to GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`).
+
+### 🚀 Local Development
+```bash
+pnpm install
+pnpm dev
+```
+
+To edit portfolio content, update [`src/data/resume.tsx`](./src/data/resume.tsx).
