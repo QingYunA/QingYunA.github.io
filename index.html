@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Portfolio · 个人主页</title>
+  <title>QingYun · 算法工程师 & 独立开发者</title>
   <style>
     :root {
       --bg: #fafafa;
@@ -26,9 +26,9 @@
       --border: #e4e4e7;
       --input: #e4e4e7;
       --ring: #18181b;
-      --radius: 10px;
+      --radius: 12px;
       --radius-sm: 6px;
-      --radius-lg: 14px;
+      --radius-lg: 16px;
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
       --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 
@@ -99,17 +99,17 @@
       overflow-x: hidden;
     }
 
-    /* 桌面端严格 100vh 一屏无滚动约束 */
+    /* 桌面端大视口一屏无滚动容器 */
     .app-viewport {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      max-width: 1220px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 20px 24px;
+      padding: 16px 24px;
       box-sizing: border-box;
-      gap: 16px;
+      gap: 14px;
     }
 
     @media (min-width: 1024px) {
@@ -166,7 +166,7 @@
     }
     .btn-sm {
       height: 28px;
-      padding: 0 8px;
+      padding: 0 10px;
       font-size: 12px;
     }
     .btn-icon {
@@ -216,16 +216,15 @@
       justify-content: space-between;
       gap: 12px;
       flex-shrink: 0;
-      padding-bottom: 4px;
     }
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .avatar-box {
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--secondary);
@@ -233,9 +232,8 @@
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--card-fg);
-      letter-spacing: -0.5px;
       box-shadow: var(--shadow-sm);
     }
     .actions-group {
@@ -271,34 +269,40 @@
       box-shadow: var(--shadow-sm);
     }
 
-    /* 主 Bento 网格容器 */
-    .bento-grid {
+    /* 核心两栏主布局 (Split Layout) */
+    .split-main {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 16px;
+      gap: 18px;
       flex: 1;
       min-height: 0;
     }
 
     @media (min-width: 1024px) {
-      .bento-grid {
-        grid-template-columns: 4.8fr 7.2fr;
+      .split-main {
+        grid-template-columns: 390px 1fr;
       }
     }
 
-    /* 左侧个人信息主卡片 */
-    .profile-card {
+    /* ============================================================
+       左栏：个人简介、4条主张、社交网络入口、技术栈
+       ============================================================ */
+    .left-column {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 24px;
+      padding: 22px;
       height: 100%;
       box-sizing: border-box;
+      gap: 14px;
+      overflow-y: auto;
+      scrollbar-width: thin;
     }
+
     .profile-hero {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 6px;
     }
     .profile-name {
       font-size: 24px;
@@ -310,28 +314,27 @@
       gap: 8px;
     }
     .profile-subtitle {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--muted-fg);
       font-weight: 500;
       line-height: 1.4;
     }
 
-    /* 4 条个性化签名清单 */
+    /* 4 条个性签名清单 */
     .manifesto-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin: 8px 0;
+      gap: 8px;
     }
     .manifesto-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 12px;
+      padding: 7px 11px;
       background: var(--secondary);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 500;
       color: var(--card-fg);
       transition: transform 0.15s ease;
@@ -340,33 +343,69 @@
       transform: translateX(2px);
     }
     .manifesto-icon {
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1;
       flex-shrink: 0;
     }
 
-    /* 技术栈徽章网格 */
-    .skills-section {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
+    /* 社交与个人主页外链区域 (X / GitHub / Email) */
+    .social-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-    .skills-title {
+    .section-label {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--muted-fg);
-      margin-bottom: 8px;
       font-weight: 600;
+    }
+    .social-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .social-link-card {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--card-fg);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .social-link-card:hover {
+      background: var(--card);
+      border-color: var(--ring);
+      transform: translateY(-1px);
+    }
+    .social-link-card svg {
+      flex-shrink: 0;
+      color: var(--card-fg);
+    }
+
+    /* 技术栈徽章 */
+    .skills-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
     }
     .tags-cloud {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
     }
     .skill-tag {
-      font-size: 12px;
-      padding: 3px 8px;
+      font-size: 11.5px;
+      padding: 2px 7px;
       border-radius: var(--radius-sm);
       background: var(--secondary);
       border: 1px solid var(--border);
@@ -374,126 +413,195 @@
       font-weight: 500;
     }
 
-    /* 右侧布局结构 */
+    /* me + ai = meal 极简哲学注脚 */
+    .philosophy-banner {
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted-fg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .philosophy-banner strong {
+      color: var(--card-fg);
+    }
+
+    /* ============================================================
+       右栏：精选项目展示展台 (Projects Showcase)
+       ============================================================ */
     .right-column {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
       height: 100%;
       min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      padding-right: 2px;
     }
 
-    /* 项目卡片列表 */
-    .projects-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
+    .section-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      padding: 2px 4px;
+    }
+    .section-header-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--card-fg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sync-hint {
+      font-size: 11.5px;
+      color: var(--muted-fg);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* 项目卡片列表容器 */
+    .project-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       flex: 1;
-      min-height: 0;
-    }
-    @media (min-width: 640px) {
-      .projects-container {
-        grid-template-columns: 1fr 1fr;
-      }
     }
 
-    .project-card {
+    /* 单个宽幅横向项目卡片 */
+    .project-card-row {
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 20px;
-      height: 100%;
-      box-sizing: border-box;
+      gap: 12px;
     }
-    .project-header {
+
+    .project-main-info {
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 16px;
     }
-    .project-title-group {
+
+    /* 产品独特 Logo 容器 */
+    .product-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .logo-pagepod {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+      color: var(--chart-indigo);
+    }
+    .logo-agent-html {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+      color: var(--chart-emerald);
+    }
+    .logo-token-monitor {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.15));
+      color: var(--chart-amber);
+    }
+
+    .project-text-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .project-heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .project-title-area {
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .project-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--card-fg);
       letter-spacing: -0.01em;
     }
+    .project-badges-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* GitHub Star 徽章 */
+    .star-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 9999px;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      color: var(--card-fg);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .star-badge:hover {
+      border-color: var(--chart-amber);
+      color: var(--chart-amber);
+    }
+    .star-icon {
+      color: var(--chart-amber);
+    }
+
     .project-desc {
       font-size: 13px;
       color: var(--muted-fg);
-      line-height: 1.5;
-      margin-bottom: 12px;
-      flex: 1;
+      line-height: 1.45;
+      margin-top: 2px;
     }
-    .project-meta {
+
+    /* 特性亮点与动作行 */
+    .project-footer-row {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
       gap: 12px;
       padding-top: 10px;
       border-top: 1px solid var(--border);
+      flex-wrap: wrap;
     }
-    .feature-points {
-      list-style: none;
+    .feature-pill-list {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .feature-points li {
-      font-size: 12px;
-      color: var(--muted-fg);
-      display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 6px;
     }
-    .feature-points li::before {
-      content: "";
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--primary);
+    .feature-pill {
+      font-size: 11.5px;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      background: var(--secondary);
+      color: var(--muted-fg);
+      border: 1px solid var(--border);
     }
-    .project-actions {
+    .project-action-btns {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    /* 右侧底部双联小卡片 */
-    .secondary-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      flex-shrink: 0;
-    }
-    @media (min-width: 640px) {
-      .secondary-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    .mini-card {
-      padding: 16px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .mini-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--card-fg);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .mini-desc {
-      font-size: 12px;
-      color: var(--muted-fg);
-      line-height: 1.45;
     }
 
     /* 底部版权与状态 */
@@ -501,7 +609,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 8px;
+      padding-top: 6px;
       border-top: 1px solid var(--border);
       font-size: 12px;
       color: var(--muted-fg);
@@ -541,6 +649,11 @@
       box-shadow: var(--shadow);
       z-index: 100;
     }
+    .toast-tip.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
     /* 打印样式优化 */
     @media print {
       body { background: #ffffff !important; color: #000000 !important; }
@@ -557,7 +670,7 @@
     <!-- 顶部导航条 -->
     <header class="header-bar">
       <div class="brand-group">
-        <div class="avatar-box" title="Avatar">AI</div>
+        <div class="avatar-box" title="QingYun">QY</div>
         <span class="badge badge-success">
           <span class="badge-dot pulse-dot"></span>
           <span id="txtBadgeStatus">开放合作 · 出海探索中</span>
@@ -596,44 +709,90 @@
       </div>
     </header>
 
-    <!-- 主 Bento 网格（左右两栏，桌面端一屏平铺） -->
-    <main class="bento-grid">
+    <!-- 核心两栏主区域：左侧个人介绍与社交，右侧作品展台 -->
+    <main class="split-main">
       
-      <!-- 左栏：个人名片与核心主张 -->
-      <section class="card profile-card">
+      <!-- ==========================================
+           左栏：个人名片 + 4条签名 + 社交入口 + 技术栈
+           ========================================== -->
+      <aside class="card left-column">
+        
+        <!-- 个人姓名与定位 -->
         <div class="profile-hero">
-          <div>
-            <h1 class="profile-name" id="txtName">
-              <span>QingYun</span>
-              <span style="font-size: 18px; font-weight: normal; color: var(--muted-fg);">/ 云青</span>
-            </h1>
-            <p class="profile-subtitle" id="txtRole">算法工程师 · 独立开发者 · 全栈探索者</p>
-          </div>
+          <h1 class="profile-name" id="txtName">
+            <span>QingYun</span>
+            <span style="font-size: 18px; font-weight: normal; color: var(--muted-fg);">/ 云青</span>
+          </h1>
+          <p class="profile-subtitle" id="txtRole">算法工程师 · 独立开发者 · 全栈探索者</p>
+        </div>
 
-          <!-- 4 条核心 Manifesto / 简介 -->
-          <div class="manifesto-list">
-            <div class="manifesto-item">
-              <span class="manifesto-icon">👨‍💻</span>
-              <span id="txtBio1">算法工程师 | 独立开发者 | 出海中 🚢</span>
-            </div>
-            <div class="manifesto-item">
-              <span class="manifesto-icon">✍️</span>
-              <span id="txtBio2">梦想是改变世界</span>
-            </div>
-            <div class="manifesto-item">
-              <span class="manifesto-icon">💻</span>
-              <span id="txtBio3">agent html | Pagepod 开发者</span>
-            </div>
-            <div class="manifesto-item">
-              <span class="manifesto-icon">🍚</span>
-              <span id="txtBio4">me + ai = meal</span>
-            </div>
+        <!-- 4 条个性化签名清单 -->
+        <div class="manifesto-list">
+          <div class="manifesto-item">
+            <span class="manifesto-icon">👨‍💻</span>
+            <span id="txtBio1">算法工程师 | 独立开发者 | 出海中 🚢</span>
+          </div>
+          <div class="manifesto-item">
+            <span class="manifesto-icon">✍️</span>
+            <span id="txtBio2">梦想是改变世界</span>
+          </div>
+          <div class="manifesto-item">
+            <span class="manifesto-icon">💻</span>
+            <span id="txtBio3">agent html | Pagepod 开发者</span>
+          </div>
+          <div class="manifesto-item">
+            <span class="manifesto-icon">🍚</span>
+            <span id="txtBio4">me + ai = meal</span>
           </div>
         </div>
 
-        <!-- 技能栈徽章 -->
+        <!-- 社交主页与联络入口（X / GitHub / Email） -->
+        <div class="social-section">
+          <div class="section-label" id="txtSocialLabel">社交与在线动态</div>
+          <div class="social-links-grid">
+            
+            <!-- X / Twitter 入口 -->
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-link-card" title="X (Twitter)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              <span>X (Twitter)</span>
+            </a>
+
+            <!-- GitHub 入口 -->
+            <a href="https://github.com/QingYunA" target="_blank" rel="noopener noreferrer" class="social-link-card" title="GitHub">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+              </svg>
+              <span>GitHub</span>
+            </a>
+
+            <!-- 邮箱复制 -->
+            <button type="button" class="social-link-card" id="btnCopyEmail" style="cursor: pointer; text-align: left; width: 100%;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <span id="btnEmailText">复制邮箱</span>
+            </button>
+
+            <!-- 个人博客 / 动态 -->
+            <a href="https://github.com/QingYunA" target="_blank" rel="noopener noreferrer" class="social-link-card" title="Blog">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                <path d="M6 6h10"/>
+                <path d="M6 10h10"/>
+              </svg>
+              <span id="btnBlogText">独立博客</span>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- 技术栈徽章 -->
         <div class="skills-section">
-          <div class="skills-title" id="txtTechStackTitle">技术栈 & 核心工具</div>
+          <div class="section-label" id="txtTechStackTitle">技术栈 & 核心工具</div>
           <div class="tags-cloud">
             <span class="skill-tag">LLM & Agents</span>
             <span class="skill-tag">PyTorch</span>
@@ -646,40 +805,82 @@
             <span class="skill-tag">Docker</span>
           </div>
         </div>
-      </section>
 
-      <!-- 右栏：主打项目展示 + 底部双微卡片 -->
+        <!-- 极简信条注脚 -->
+        <div class="philosophy-banner">
+          <span>🍚</span>
+          <span id="txtPhilosophyBrief"><strong>me + ai = meal</strong> · 算法杠杆与务实构建</span>
+        </div>
+
+      </aside>
+
+      <!-- ==========================================
+           右栏：主力项目展台 (带独立产品 Logo 与实时 Star)
+           ========================================== -->
       <section class="right-column">
         
-        <!-- 双核心主力项目 -->
-        <div class="projects-container">
+        <div class="section-header-bar">
+          <div class="section-header-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary);">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span id="txtProjectSectionTitle">精选开源与出海作品</span>
+          </div>
+          <div class="sync-hint">
+            <span class="badge-dot" style="background: var(--chart-emerald);"></span>
+            <span id="txtSyncHint">GitHub Star 实时同步已就绪</span>
+          </div>
+        </div>
+
+        <div class="project-card-list">
           
           <!-- 项目 1: Pagepod -->
-          <article class="card card-hover project-card">
-            <div>
-              <div class="project-header">
-                <div class="project-title-group">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--chart-indigo);">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                    <polyline points="2 17 12 22 22 17"/>
-                    <polyline points="2 12 12 17 22 12"/>
-                  </svg>
-                  <h2 class="project-title">Pagepod</h2>
-                </div>
-                <span class="badge" id="badgeProject1">主力产品</span>
+          <article class="card card-hover project-card-row">
+            <div class="project-main-info">
+              <!-- 产品专属品牌 Logo -->
+              <div class="product-logo logo-pagepod" title="Pagepod Logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
               </div>
-              <p class="project-desc" id="descProject1">
-                轻量现代化 HTML 应用托管与分发平台。支持单文件与 ZIP 多版本瞬时部署、硬核 CSP 沙箱物理隔离与独立域名绑定。
-              </p>
+
+              <!-- 标题、Star、描述 -->
+              <div class="project-text-group">
+                <div class="project-heading-row">
+                  <div class="project-title-area">
+                    <h2 class="project-title">Pagepod</h2>
+                    <span class="badge" id="badgeProject1">主力出海产品</span>
+                  </div>
+
+                  <!-- 实时 Star 徽章 -->
+                  <div class="project-badges-group">
+                    <a href="https://github.com/QingYunA/Pagepod" target="_blank" rel="noopener noreferrer" class="star-badge" id="starBadgePagepod" title="Star on GitHub">
+                      <svg class="star-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                      <span class="count" id="countPagepod">1</span>
+                    </a>
+                  </div>
+                </div>
+
+                <p class="project-desc" id="descProject1">
+                  轻量现代化 HTML 应用托管与分发平台。支持单文件与 ZIP 多版本瞬时部署、硬核 CSP 沙箱物理隔离与独立自定义域名绑定。
+                </p>
+              </div>
             </div>
 
-            <div class="project-meta">
-              <ul class="feature-points">
-                <li id="p1Feat1">0 秒极速上传与静态分发</li>
-                <li id="p1Feat2">严格 CSP 沙箱与跨域物理隔离</li>
-                <li id="p1Feat3">自动化快照与自定义域名解析</li>
-              </ul>
-              <div class="project-actions">
+            <!-- 特性标签与直达动作 -->
+            <div class="project-footer-row">
+              <div class="feature-pill-list">
+                <span class="feature-pill">⚡ 0秒瞬时部署</span>
+                <span class="feature-pill">🛡️ CSP 沙箱隔离</span>
+                <span class="feature-pill">🌐 自定义独立域名</span>
+                <span class="feature-pill">📦 快照版本回溯</span>
+              </div>
+              <div class="project-action-btns">
                 <a href="https://www.pagepod.dev" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="btnVisitPagepod">
                   <span>在线体验</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -692,30 +893,50 @@
           </article>
 
           <!-- 项目 2: agent-html -->
-          <article class="card card-hover project-card">
-            <div>
-              <div class="project-header">
-                <div class="project-title-group">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--chart-emerald);">
-                    <polyline points="16 18 22 12 16 6"/>
-                    <polyline points="8 6 2 12 8 18"/>
-                  </svg>
-                  <h2 class="project-title">agent-html</h2>
-                </div>
-                <span class="badge" id="badgeProject2">开源规范</span>
+          <article class="card card-hover project-card-row">
+            <div class="project-main-info">
+              <!-- 产品专属品牌 Logo -->
+              <div class="product-logo logo-agent-html" title="agent-html Logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"/>
+                  <polyline points="8 6 2 12 8 18"/>
+                </svg>
               </div>
-              <p class="project-desc" id="descProject2">
-                为 AI Agent 深度设计的纯原生单文件 HTML 设计系统。零外部依赖、零 CDN 风险、内置暗黑模式与 19 道自动化质量门禁。
-              </p>
+
+              <!-- 标题、Star、描述 -->
+              <div class="project-text-group">
+                <div class="project-heading-row">
+                  <div class="project-title-area">
+                    <h2 class="project-title">agent-html</h2>
+                    <span class="badge" id="badgeProject2">开源规范系统</span>
+                  </div>
+
+                  <!-- 实时 Star 徽章 -->
+                  <div class="project-badges-group">
+                    <a href="https://github.com/QingYunA/agent-html" target="_blank" rel="noopener noreferrer" class="star-badge" id="starBadgeAgentHtml" title="Star on GitHub">
+                      <svg class="star-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                      <span class="count" id="countAgentHtml">29</span>
+                    </a>
+                  </div>
+                </div>
+
+                <p class="project-desc" id="descProject2">
+                  为 AI Agent 深度设计的纯原生单文件 HTML 设计系统与母版库。零外部依赖、零 CDN 风险、内置暗黑模式与 19 道自动化质量门禁。
+                </p>
+              </div>
             </div>
 
-            <div class="project-meta">
-              <ul class="feature-points">
-                <li id="p2Feat1">100% 离线自包含，双击秒开</li>
-                <li id="p2Feat2">Zinc 黑白极简工业美学，杜绝 AI 塑料味</li>
-                <li id="p2Feat3">六大专业母版体系与原生轻量图表</li>
-              </ul>
-              <div class="project-actions">
+            <!-- 特性标签与直达动作 -->
+            <div class="project-footer-row">
+              <div class="feature-pill-list">
+                <span class="feature-pill">📦 100% 离线自包含</span>
+                <span class="feature-pill">📐 shadcn 工业风</span>
+                <span class="feature-pill">⚡ 零构建双击秒开</span>
+                <span class="feature-pill">🔍 19道门禁保障</span>
+              </div>
+              <div class="project-action-btns">
                 <a href="https://github.com/QingYunA/agent-html" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="btnVisitAgentHtml">
                   <span>规范指南</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -727,36 +948,56 @@
             </div>
           </article>
 
-        </div>
+          <!-- 项目 3: antigravity-token-monitor -->
+          <article class="card card-hover project-card-row">
+            <div class="project-main-info">
+              <!-- 产品专属品牌 Logo -->
+              <div class="product-logo logo-token-monitor" title="Token Monitor Logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </div>
 
-        <!-- 底部双联微卡片：理念 + 极速联络 -->
-        <div class="secondary-grid">
-          
-          <div class="card mini-card">
-            <div class="mini-title">
-              <span>🍚</span>
-              <span id="titlePhilosophy">me + ai = meal</span>
-            </div>
-            <p class="mini-desc" id="descPhilosophy">
-              独立开发者的极简实用主义。用算法与 AI 放大生产力杠杆，把改变世界的愿景落在每一行高质量代码上。
-            </p>
-          </div>
+              <!-- 标题、Star、描述 -->
+              <div class="project-text-group">
+                <div class="project-heading-row">
+                  <div class="project-title-area">
+                    <h2 class="project-title">antigravity-token-monitor</h2>
+                    <span class="badge" id="badgeProject3">macOS 极客工具</span>
+                  </div>
 
-          <div class="card mini-card">
-            <div class="mini-title">
-              <span>📬</span>
-              <span id="titleConnect">保持交流 · Say Hi</span>
+                  <!-- 实时 Star 徽章 -->
+                  <div class="project-badges-group">
+                    <a href="https://github.com/QingYunA/antigravity-token-monitor" target="_blank" rel="noopener noreferrer" class="star-badge" id="starBadgeTokenMonitor" title="Star on GitHub">
+                      <svg class="star-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                      <span class="count" id="countTokenMonitor">0</span>
+                    </a>
+                  </div>
+                </div>
+
+                <p class="project-desc" id="descProject3">
+                  针对 Google DeepMind Antigravity 的实时 Token 消耗与额度监控扩展，支持原生 macOS 菜单栏常驻与 Web 可视化仪表盘。
+                </p>
+              </div>
             </div>
-            <p class="mini-desc" id="descConnect">
-              欢迎算法探讨、出海经验交流或开源项目协同。
-            </p>
-            <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
-              <button type="button" class="btn btn-sm" id="btnCopyEmail">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <span id="btnCopyText">复制联系邮箱</span>
-              </button>
+
+            <!-- 特性标签与直达动作 -->
+            <div class="project-footer-row">
+              <div class="feature-pill-list">
+                <span class="feature-pill">⚡ 实时额度探针</span>
+                <span class="feature-pill">🖥️ macOS 原生状态栏</span>
+                <span class="feature-pill">📊 5小时/周限额计算</span>
+              </div>
+              <div class="project-action-btns">
+                <a href="https://github.com/QingYunA/antigravity-token-monitor" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                  <span>GitHub</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+              </div>
             </div>
-          </div>
+          </article>
 
         </div>
 
@@ -795,27 +1036,23 @@
         bio2: "梦想是改变世界",
         bio3: "agent html | Pagepod 开发者",
         bio4: "me + ai = meal",
+        socialLabel: "社交与在线动态",
+        emailText: "复制邮箱",
+        blogText: "独立博客",
         techStackTitle: "技术栈 & 核心工具",
-        badgeProject1: "主力产品",
-        descProject1: "轻量现代化 HTML 应用托管与分发平台。支持单文件与 ZIP 多版本瞬时部署、硬核 CSP 沙箱物理隔离与独立域名绑定。",
-        p1Feat1: "0 秒极速上传与静态分发",
-        p1Feat2: "严格 CSP 沙箱与跨域物理隔离",
-        p1Feat3: "自动化快照与自定义域名解析",
+        philosophyBrief: "<strong>me + ai = meal</strong> · 算法杠杆与务实构建",
+        projectSectionTitle: "精选开源与出海作品",
+        syncHint: "GitHub Star 实时同步已就绪",
+        badgeProject1: "主力出海产品",
+        descProject1: "轻量现代化 HTML 应用托管与分发平台。支持单文件与 ZIP 多版本瞬时部署、硬核 CSP 沙箱物理隔离与独立自定义域名绑定。",
         btnVisitPagepod: "在线体验",
-        badgeProject2: "开源规范",
-        descProject2: "为 AI Agent 深度设计的纯原生单文件 HTML 设计系统。零外部依赖、零 CDN 风险、内置暗黑模式与 19 道自动化质量门禁。",
-        p2Feat1: "100% 离线自包含，双击秒开",
-        p2Feat2: "Zinc 黑白极简工业美学，杜绝 AI 塑料味",
-        p2Feat3: "六大专业母版体系与原生轻量图表",
+        badgeProject2: "开源规范系统",
+        descProject2: "为 AI Agent 深度设计的纯原生单文件 HTML 设计系统与母版库。零外部依赖、零 CDN 风险、内置暗黑模式与 19 道自动化质量门禁。",
         btnVisitAgentHtml: "规范指南",
-        titlePhilosophy: "me + ai = meal",
-        descPhilosophy: "独立开发者的极简实用主义。用算法与 AI 放大生产力杠杆，把改变世界的愿景落在每一行高质量代码上。",
-        titleConnect: "保持交流 · Say Hi",
-        descConnect: "欢迎算法探讨、出海经验交流或开源项目协同。",
-        btnCopyText: "复制联系邮箱",
+        badgeProject3: "macOS 极客工具",
+        descProject3: "针对 Google DeepMind Antigravity 的实时 Token 消耗与额度监控扩展，支持原生 macOS 菜单栏常驻与 Web 可视化仪表盘。",
         toastCopied: "联系邮箱已复制到剪贴板！",
         footerCopyright: "© 2026 QingYun · 零依赖单页无滚动纯静态主页",
-        footerHost: "托管于",
         backTop: "返回顶端"
       },
       en: {
@@ -827,27 +1064,23 @@
         bio2: "Dream: Make a dent in the universe",
         bio3: "Creator of agent-html & Pagepod",
         bio4: "me + ai = meal",
+        socialLabel: "Social & Online Presence",
+        emailText: "Copy Email",
+        blogText: "Personal Blog",
         techStackTitle: "Tech Stack & Arsenal",
+        philosophyBrief: "<strong>me + ai = meal</strong> · Pragmatic Leverage with AI",
+        projectSectionTitle: "Featured Projects & Open Source",
+        syncHint: "Real-time GitHub Star Sync",
         badgeProject1: "Flagship Product",
         descProject1: "Modern lightweight hosting platform for standalone HTML apps. Features instant zero-build deployments, hardened CSP sandbox, and custom domains.",
-        p1Feat1: "Sub-second upload & CDN distribution",
-        p1Feat2: "Hardened CSP sandbox & process isolation",
-        p1Feat3: "Automated snapshots & custom domains",
         btnVisitPagepod: "Live Demo",
-        badgeProject2: "Open Spec",
+        badgeProject2: "Open Spec System",
         descProject2: "A zero-dependency standalone HTML design system & component spec built for AI Agents. No CDN risks, native dark mode, and 19 quality gates.",
-        p2Feat1: "100% offline self-contained, instant launch",
-        p2Feat2: "Zinc monochrome aesthetics, zero AI-slop",
-        p2Feat3: "6 production templates & native SVG charts",
         btnVisitAgentHtml: "Explore Spec",
-        titlePhilosophy: "me + ai = meal",
-        descPhilosophy: "The pragmatic indie hacker mindset: levering AI to supercharge engineering velocity and turning ambitious visions into reality.",
-        titleConnect: "Let's Connect · Say Hi",
-        descConnect: "Open for discussions on algorithms, AI Agents, and indie product journeys.",
-        btnCopyText: "Copy Email",
+        badgeProject3: "macOS Developer Tool",
+        descProject3: "Real-time quota & token consumption monitor for Google DeepMind Antigravity, featuring native macOS menu bar integration and web dashboard.",
         toastCopied: "Email copied to clipboard!",
         footerCopyright: "© 2026 QingYun · Standalone No-Scroll Portfolio",
-        footerHost: "Hosted on",
         backTop: "Back to top"
       }
     };
@@ -865,7 +1098,7 @@
       document.getElementById('btnZh').classList.toggle('active', lang === 'zh');
       document.getElementById('btnEn').classList.toggle('active', lang === 'en');
 
-      // 更新所有文案
+      // 更新左栏个人文案
       document.getElementById('txtBadgeStatus').textContent = dict.badgeStatus;
       document.getElementById('txtName').innerHTML = '<span>' + dict.name + '</span><span style="font-size: 18px; font-weight: normal; color: var(--muted-fg);">' + dict.nameSub + '</span>';
       document.getElementById('txtRole').textContent = dict.role;
@@ -873,27 +1106,26 @@
       document.getElementById('txtBio2').textContent = dict.bio2;
       document.getElementById('txtBio3').textContent = dict.bio3;
       document.getElementById('txtBio4').textContent = dict.bio4;
+      document.getElementById('txtSocialLabel').textContent = dict.socialLabel;
+      document.getElementById('btnEmailText').textContent = dict.emailText;
+      document.getElementById('btnBlogText').textContent = dict.blogText;
       document.getElementById('txtTechStackTitle').textContent = dict.techStackTitle;
+      document.getElementById('txtPhilosophyBrief').innerHTML = dict.philosophyBrief;
 
+      // 更新右栏项目文案
+      document.getElementById('txtProjectSectionTitle').textContent = dict.projectSectionTitle;
+      document.getElementById('txtSyncHint').textContent = dict.syncHint;
+      
       document.getElementById('badgeProject1').textContent = dict.badgeProject1;
       document.getElementById('descProject1').textContent = dict.descProject1;
-      document.getElementById('p1Feat1').textContent = dict.p1Feat1;
-      document.getElementById('p1Feat2').textContent = dict.p1Feat2;
-      document.getElementById('p1Feat3').textContent = dict.p1Feat3;
       document.querySelector('#btnVisitPagepod span').textContent = dict.btnVisitPagepod;
 
       document.getElementById('badgeProject2').textContent = dict.badgeProject2;
       document.getElementById('descProject2').textContent = dict.descProject2;
-      document.getElementById('p2Feat1').textContent = dict.p2Feat1;
-      document.getElementById('p2Feat2').textContent = dict.p2Feat2;
-      document.getElementById('p2Feat3').textContent = dict.p2Feat3;
       document.querySelector('#btnVisitAgentHtml span').textContent = dict.btnVisitAgentHtml;
 
-      document.getElementById('titlePhilosophy').textContent = dict.titlePhilosophy;
-      document.getElementById('descPhilosophy').textContent = dict.descPhilosophy;
-      document.getElementById('titleConnect').textContent = dict.titleConnect;
-      document.getElementById('descConnect').textContent = dict.descConnect;
-      document.getElementById('btnCopyText').textContent = dict.btnCopyText;
+      document.getElementById('badgeProject3').textContent = dict.badgeProject3;
+      document.getElementById('descProject3').textContent = dict.descProject3;
 
       document.querySelector('.footer-left span').textContent = dict.footerCopyright;
       document.getElementById('linkBackTop').textContent = dict.backTop;
@@ -920,7 +1152,6 @@
     const themeBtn = document.getElementById('themeToggle');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // 默认保持深色质感，或根据偏好初始化
     let currentTheme = 'dark';
     try {
       const savedTheme = localStorage.getItem('portfolio-theme');
@@ -941,13 +1172,40 @@
     });
 
     // -------------------------------------------------------------
+    // 实时同步 GitHub Star 数 (Live Star Sync via GitHub REST API)
+    // -------------------------------------------------------------
+    const reposToSync = [
+      { id: 'countPagepod', repo: 'QingYunA/Pagepod', defaultStars: 1 },
+      { id: 'countAgentHtml', repo: 'QingYunA/agent-html', defaultStars: 29 },
+      { id: 'countTokenMonitor', repo: 'QingYunA/antigravity-token-monitor', defaultStars: 0 }
+    ];
+
+    async function syncGitHubStars() {
+      for (const item of reposToSync) {
+        try {
+          const res = await fetch('https://api.github.com/repos/' + item.repo);
+          if (res.ok) {
+            const data = await res.json();
+            if (typeof data.stargazers_count === 'number') {
+              const el = document.getElementById(item.id);
+              if (el) el.textContent = data.stargazers_count;
+            }
+          }
+        } catch (err) {
+          // 网络异常或离线时保留初始兜底值
+        }
+      }
+    }
+    syncGitHubStars();
+
+    // -------------------------------------------------------------
     // 复制邮箱交互
     // -------------------------------------------------------------
     const btnCopyEmail = document.getElementById('btnCopyEmail');
     const toastTip = document.getElementById('toastTip');
 
     btnCopyEmail.addEventListener('click', () => {
-      const email = "hi@example.com"; // 替换为你的真实邮箱
+      const email = "hi@example.com"; // 替换为你的对外交流邮箱
       navigator.clipboard.writeText(email).then(() => {
         toastTip.textContent = i18n[currentLang].toastCopied;
         toastTip.classList.add('show');
