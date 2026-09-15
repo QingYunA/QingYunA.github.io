@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Portfolio · 个人主页</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card: #ffffff;
+      --card-fg: #09090b;
+      --popover: #ffffff;
+      --popover-fg: #09090b;
+      --primary: #18181b;
+      --primary-fg: #fafafa;
+      --primary-hover: #27272a;
+      --secondary: #f4f4f5;
+      --secondary-fg: #18181b;
+      --secondary-hover: #e4e4e7;
+      --accent: #f4f4f5;
+      --accent-fg: #18181b;
+      --destructive: #dc2626;
+      --destructive-fg: #fafafa;
+      --muted: #f4f4f5;
+      --muted-fg: #71717a;
+      --border: #e4e4e7;
+      --input: #e4e4e7;
+      --ring: #18181b;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+
+      --ok: #16a34a;   --ok-bg: #f0fdf4;   --ok-border: #bbf7d0;
+      --warn: #d97706; --warn-bg: #fffbeb; --warn-border: #fde68a;
+      --err: #dc2626;  --err-bg: #fef2f2;  --err-border: #fecaca;
+      --info: #2563eb; --info-bg: #eff6ff; --info-border: #bfdbfe;
+
+      --chart-indigo: #6366f1;
+      --chart-emerald: #10b981;
+      --chart-amber: #f59e0b;
+      --chart-rose: #f43f5e;
+      --chart-violet: #8b5cf6;
+      --chart-cyan: #06b6d4;
+      --chart-slate: #64748b;
+    }
+
+    [data-theme="dark"] {
+      --bg: #09090b;
+      --card: #121215;
+      --card-fg: #fafafa;
+      --popover: #121215;
+      --popover-fg: #fafafa;
+      --primary: #fafafa;
+      --primary-fg: #18181b;
+      --primary-hover: #e4e4e7;
+      --secondary: #27272a;
+      --secondary-fg: #fafafa;
+      --secondary-hover: #3f3f46;
+      --accent: #27272a;
+      --accent-fg: #fafafa;
+      --destructive: #ef4444;
+      --destructive-fg: #fafafa;
+      --muted: #18181b;
+      --muted-fg: #a1a1aa;
+      --border: #27272a;
+      --input: #27272a;
+      --ring: #d4d4d8;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+
+      --ok: #4ade80;   --ok-bg: #052e1680;   --ok-border: #166534;
+      --warn: #fbbf24; --warn-bg: #451a0380; --warn-border: #854d0e;
+      --err: #f87171;  --err-bg: #450a0a80;  --err-border: #991b1b;
+      --info: #60a5fa; --info-bg: #17255480; --info-border: #1e40af;
+
+      --chart-indigo: #818cf8;
+      --chart-emerald: #34d399;
+      --chart-amber: #fbbf24;
+      --chart-rose: #fb7185;
+      --chart-violet: #a78bfa;
+      --chart-cyan: #22d3ee;
+      --chart-slate: #94a3b8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg);
+      color: var(--card-fg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* 桌面端严格 100vh 一屏无滚动约束 */
+    .app-viewport {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      box-sizing: border-box;
+      gap: 16px;
+    }
+
+    @media (min-width: 1024px) {
+      .app-viewport {
+        height: 100vh;
+        overflow: hidden;
+      }
+    }
+
+    /* 基础卡片 */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-hover:hover {
+      border-color: var(--ring);
+      transform: translateY(-1px);
+    }
+
+    /* 按钮 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--card-fg);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      background: var(--secondary);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--primary-fg);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      opacity: 0.95;
+    }
+    .btn-sm {
+      height: 28px;
+      padding: 0 8px;
+      font-size: 12px;
+    }
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+    }
+
+    /* 徽章 */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      background: var(--secondary);
+      color: var(--secondary-fg);
+      line-height: 1;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background: currentColor;
+    }
+    .badge-success {
+      background: var(--ok-bg);
+      color: var(--ok);
+      border-color: var(--ok-border);
+    }
+    .pulse-dot {
+      animation: pulseAnim 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulseAnim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* 顶部导航栏 */
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-shrink: 0;
+      padding-bottom: 4px;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .avatar-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--card-fg);
+      letter-spacing: -0.5px;
+      box-shadow: var(--shadow-sm);
+    }
+    .actions-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 分段语言切换器 */
+    .lang-segment {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted-fg);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .lang-btn.active {
+      background: var(--card);
+      color: var(--card-fg);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* 主 Bento 网格容器 */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    @media (min-width: 1024px) {
+      .bento-grid {
+        grid-template-columns: 4.8fr 7.2fr;
+      }
+    }
+
+    /* 左侧个人信息主卡片 */
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .profile-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .profile-name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--card-fg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .profile-subtitle {
+      font-size: 14px;
+      color: var(--muted-fg);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* 4 条个性化签名清单 */
+    .manifesto-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 8px 0;
+    }
+    .manifesto-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--card-fg);
+      transition: transform 0.15s ease;
+    }
+    .manifesto-item:hover {
+      transform: translateX(2px);
+    }
+    .manifesto-icon {
+      font-size: 15px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* 技术栈徽章网格 */
+    .skills-section {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .skills-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-fg);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .skill-tag {
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      color: var(--card-fg);
+      font-weight: 500;
+    }
+
+    /* 右侧布局结构 */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+      min-height: 0;
+    }
+
+    /* 项目卡片列表 */
+    .projects-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      flex: 1;
+      min-height: 0;
+    }
+    @media (min-width: 640px) {
+      .projects-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .project-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .project-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--card-fg);
+      letter-spacing: -0.01em;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted-fg);
+      line-height: 1.5;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+    .project-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .feature-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .feature-points li {
+      font-size: 12px;
+      color: var(--muted-fg);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feature-points li::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .project-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 右侧底部双联小卡片 */
+    .secondary-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+      .secondary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .mini-card {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .mini-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--card-fg);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mini-desc {
+      font-size: 12px;
+      color: var(--muted-fg);
+      line-height: 1.45;
+    }
+
+    /* 底部版权与状态 */
+    .footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted-fg);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-left, .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-link {
+      color: var(--muted-fg);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .footer-link:hover {
+      color: var(--card-fg);
+    }
+
+    /* Toast 复制提示微动效 */
+    .toast-tip {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--primary);
+      color: var(--primary-fg);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow);
+      z-index: 100;
+    }
+    /* 打印样式优化 */
+    @media print {
+      body { background: #ffffff !important; color: #000000 !important; }
+      .app-viewport { height: auto !important; overflow: visible !important; padding: 0 !important; }
+      .header-bar .actions-group, .toast-tip, #btnCopyEmail, #themeToggle, .lang-segment { display: none !important; }
+      .card { box-shadow: none !important; border: 1px solid #d4d4d8 !important; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-viewport">
+    
+    <!-- 顶部导航条 -->
+    <header class="header-bar">
+      <div class="brand-group">
+        <div class="avatar-box" title="Avatar">AI</div>
+        <span class="badge badge-success">
+          <span class="badge-dot pulse-dot"></span>
+          <span id="txtBadgeStatus">开放合作 · 出海探索中</span>
+        </span>
+      </div>
+
+      <div class="actions-group">
+        <!-- 中英双语切换器 -->
+        <div class="lang-segment" role="group" aria-label="Language Selector">
+          <button type="button" id="btnZh" class="lang-btn active">中文</button>
+          <button type="button" id="btnEn" class="lang-btn">EN</button>
+        </div>
+
+        <!-- 深浅主题切换 -->
+        <button type="button" id="themeToggle" class="btn btn-icon" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+
+        <!-- 社交快捷入口 (GitHub) -->
+        <a href="https://github.com/QingYunA" target="_blank" rel="noopener noreferrer" class="btn btn-icon" title="GitHub: QingYunA">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+            <path d="M9 18c-4.51 2-5-2-7-2"/>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- 主 Bento 网格（左右两栏，桌面端一屏平铺） -->
+    <main class="bento-grid">
+      
+      <!-- 左栏：个人名片与核心主张 -->
+      <section class="card profile-card">
+        <div class="profile-hero">
+          <div>
+            <h1 class="profile-name" id="txtName">
+              <span>QingYun</span>
+              <span style="font-size: 18px; font-weight: normal; color: var(--muted-fg);">/ 云青</span>
+            </h1>
+            <p class="profile-subtitle" id="txtRole">算法工程师 · 独立开发者 · 全栈探索者</p>
+          </div>
+
+          <!-- 4 条核心 Manifesto / 简介 -->
+          <div class="manifesto-list">
+            <div class="manifesto-item">
+              <span class="manifesto-icon">👨‍💻</span>
+              <span id="txtBio1">算法工程师 | 独立开发者 | 出海中 🚢</span>
+            </div>
+            <div class="manifesto-item">
+              <span class="manifesto-icon">✍️</span>
+              <span id="txtBio2">梦想是改变世界</span>
+            </div>
+            <div class="manifesto-item">
+              <span class="manifesto-icon">💻</span>
+              <span id="txtBio3">agent html | Pagepod 开发者</span>
+            </div>
+            <div class="manifesto-item">
+              <span class="manifesto-icon">🍚</span>
+              <span id="txtBio4">me + ai = meal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 技能栈徽章 -->
+        <div class="skills-section">
+          <div class="skills-title" id="txtTechStackTitle">技术栈 & 核心工具</div>
+          <div class="tags-cloud">
+            <span class="skill-tag">LLM & Agents</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Cloudflare</span>
+            <span class="skill-tag">Docker</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 右栏：主打项目展示 + 底部双微卡片 -->
+      <section class="right-column">
+        
+        <!-- 双核心主力项目 -->
+        <div class="projects-container">
+          
+          <!-- 项目 1: Pagepod -->
+          <article class="card card-hover project-card">
+            <div>
+              <div class="project-header">
+                <div class="project-title-group">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--chart-indigo);">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                  </svg>
+                  <h2 class="project-title">Pagepod</h2>
+                </div>
+                <span class="badge" id="badgeProject1">主力产品</span>
+              </div>
+              <p class="project-desc" id="descProject1">
+                轻量现代化 HTML 应用托管与分发平台。支持单文件与 ZIP 多版本瞬时部署、硬核 CSP 沙箱物理隔离与独立域名绑定。
+              </p>
+            </div>
+
+            <div class="project-meta">
+              <ul class="feature-points">
+                <li id="p1Feat1">0 秒极速上传与静态分发</li>
+                <li id="p1Feat2">严格 CSP 沙箱与跨域物理隔离</li>
+                <li id="p1Feat3">自动化快照与自定义域名解析</li>
+              </ul>
+              <div class="project-actions">
+                <a href="https://www.pagepod.dev" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="btnVisitPagepod">
+                  <span>在线体验</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+                <a href="https://github.com/QingYunA/Pagepod" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 项目 2: agent-html -->
+          <article class="card card-hover project-card">
+            <div>
+              <div class="project-header">
+                <div class="project-title-group">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--chart-emerald);">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                  </svg>
+                  <h2 class="project-title">agent-html</h2>
+                </div>
+                <span class="badge" id="badgeProject2">开源规范</span>
+              </div>
+              <p class="project-desc" id="descProject2">
+                为 AI Agent 深度设计的纯原生单文件 HTML 设计系统。零外部依赖、零 CDN 风险、内置暗黑模式与 19 道自动化质量门禁。
+              </p>
+            </div>
+
+            <div class="project-meta">
+              <ul class="feature-points">
+                <li id="p2Feat1">100% 离线自包含，双击秒开</li>
+                <li id="p2Feat2">Zinc 黑白极简工业美学，杜绝 AI 塑料味</li>
+                <li id="p2Feat3">六大专业母版体系与原生轻量图表</li>
+              </ul>
+              <div class="project-actions">
+                <a href="https://github.com/QingYunA/agent-html" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="btnVisitAgentHtml">
+                  <span>规范指南</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+                <a href="https://github.com/QingYunA/agent-html" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- 底部双联微卡片：理念 + 极速联络 -->
+        <div class="secondary-grid">
+          
+          <div class="card mini-card">
+            <div class="mini-title">
+              <span>🍚</span>
+              <span id="titlePhilosophy">me + ai = meal</span>
+            </div>
+            <p class="mini-desc" id="descPhilosophy">
+              独立开发者的极简实用主义。用算法与 AI 放大生产力杠杆，把改变世界的愿景落在每一行高质量代码上。
+            </p>
+          </div>
+
+          <div class="card mini-card">
+            <div class="mini-title">
+              <span>📬</span>
+              <span id="titleConnect">保持交流 · Say Hi</span>
+            </div>
+            <p class="mini-desc" id="descConnect">
+              欢迎算法探讨、出海经验交流或开源项目协同。
+            </p>
+            <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
+              <button type="button" class="btn btn-sm" id="btnCopyEmail">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span id="btnCopyText">复制联系邮箱</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- 底部版权与 GitHub Pages 归档声明 -->
+    <footer class="footer-bar">
+      <div class="footer-left">
+        <span>© 2026 QingYun · 零依赖单页无滚动纯静态主页</span>
+      </div>
+      <div class="footer-right">
+        <span>托管于 <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Pages</a></span>
+        <span>·</span>
+        <a href="#top" class="footer-link" id="linkBackTop">返回顶端</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- 复制成功浮层提示 -->
+  <div class="toast-tip" id="toastTip">已复制到剪贴板</div>
+
+  <script>
+    // -------------------------------------------------------------
+    // 中英双语数据字典 (i18n Dictionary)
+    // -------------------------------------------------------------
+    const i18n = {
+      zh: {
+        badgeStatus: "开放合作 · 出海探索中",
+        name: "QingYun",
+        nameSub: "/ 云青",
+        role: "算法工程师 · 独立开发者 · 全栈探索者",
+        bio1: "算法工程师 | 独立开发者 | 出海中 🚢",
+        bio2: "梦想是改变世界",
+        bio3: "agent html | Pagepod 开发者",
+        bio4: "me + ai = meal",
+        techStackTitle: "技术栈 & 核心工具",
+        badgeProject1: "主力产品",
+        descProject1: "轻量现代化 HTML 应用托管与分发平台。支持单文件与 ZIP 多版本瞬时部署、硬核 CSP 沙箱物理隔离与独立域名绑定。",
+        p1Feat1: "0 秒极速上传与静态分发",
+        p1Feat2: "严格 CSP 沙箱与跨域物理隔离",
+        p1Feat3: "自动化快照与自定义域名解析",
+        btnVisitPagepod: "在线体验",
+        badgeProject2: "开源规范",
+        descProject2: "为 AI Agent 深度设计的纯原生单文件 HTML 设计系统。零外部依赖、零 CDN 风险、内置暗黑模式与 19 道自动化质量门禁。",
+        p2Feat1: "100% 离线自包含，双击秒开",
+        p2Feat2: "Zinc 黑白极简工业美学，杜绝 AI 塑料味",
+        p2Feat3: "六大专业母版体系与原生轻量图表",
+        btnVisitAgentHtml: "规范指南",
+        titlePhilosophy: "me + ai = meal",
+        descPhilosophy: "独立开发者的极简实用主义。用算法与 AI 放大生产力杠杆，把改变世界的愿景落在每一行高质量代码上。",
+        titleConnect: "保持交流 · Say Hi",
+        descConnect: "欢迎算法探讨、出海经验交流或开源项目协同。",
+        btnCopyText: "复制联系邮箱",
+        toastCopied: "联系邮箱已复制到剪贴板！",
+        footerCopyright: "© 2026 QingYun · 零依赖单页无滚动纯静态主页",
+        footerHost: "托管于",
+        backTop: "返回顶端"
+      },
+      en: {
+        badgeStatus: "Open for Collaboration & Going Global",
+        name: "QingYun",
+        nameSub: "/ Indie Hacker",
+        role: "Algorithm Engineer · Indie Hacker · Full-Stack Explorer",
+        bio1: "Algorithm Engineer | Indie Hacker | Going Global 🚢",
+        bio2: "Dream: Make a dent in the universe",
+        bio3: "Creator of agent-html & Pagepod",
+        bio4: "me + ai = meal",
+        techStackTitle: "Tech Stack & Arsenal",
+        badgeProject1: "Flagship Product",
+        descProject1: "Modern lightweight hosting platform for standalone HTML apps. Features instant zero-build deployments, hardened CSP sandbox, and custom domains.",
+        p1Feat1: "Sub-second upload & CDN distribution",
+        p1Feat2: "Hardened CSP sandbox & process isolation",
+        p1Feat3: "Automated snapshots & custom domains",
+        btnVisitPagepod: "Live Demo",
+        badgeProject2: "Open Spec",
+        descProject2: "A zero-dependency standalone HTML design system & component spec built for AI Agents. No CDN risks, native dark mode, and 19 quality gates.",
+        p2Feat1: "100% offline self-contained, instant launch",
+        p2Feat2: "Zinc monochrome aesthetics, zero AI-slop",
+        p2Feat3: "6 production templates & native SVG charts",
+        btnVisitAgentHtml: "Explore Spec",
+        titlePhilosophy: "me + ai = meal",
+        descPhilosophy: "The pragmatic indie hacker mindset: levering AI to supercharge engineering velocity and turning ambitious visions into reality.",
+        titleConnect: "Let's Connect · Say Hi",
+        descConnect: "Open for discussions on algorithms, AI Agents, and indie product journeys.",
+        btnCopyText: "Copy Email",
+        toastCopied: "Email copied to clipboard!",
+        footerCopyright: "© 2026 QingYun · Standalone No-Scroll Portfolio",
+        footerHost: "Hosted on",
+        backTop: "Back to top"
+      }
+    };
+
+    let currentLang = 'zh';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const dict = i18n[lang];
+      if (!dict) return;
+
+      document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+
+      // 更新按钮激活态
+      document.getElementById('btnZh').classList.toggle('active', lang === 'zh');
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+
+      // 更新所有文案
+      document.getElementById('txtBadgeStatus').textContent = dict.badgeStatus;
+      document.getElementById('txtName').innerHTML = '<span>' + dict.name + '</span><span style="font-size: 18px; font-weight: normal; color: var(--muted-fg);">' + dict.nameSub + '</span>';
+      document.getElementById('txtRole').textContent = dict.role;
+      document.getElementById('txtBio1').textContent = dict.bio1;
+      document.getElementById('txtBio2').textContent = dict.bio2;
+      document.getElementById('txtBio3').textContent = dict.bio3;
+      document.getElementById('txtBio4').textContent = dict.bio4;
+      document.getElementById('txtTechStackTitle').textContent = dict.techStackTitle;
+
+      document.getElementById('badgeProject1').textContent = dict.badgeProject1;
+      document.getElementById('descProject1').textContent = dict.descProject1;
+      document.getElementById('p1Feat1').textContent = dict.p1Feat1;
+      document.getElementById('p1Feat2').textContent = dict.p1Feat2;
+      document.getElementById('p1Feat3').textContent = dict.p1Feat3;
+      document.querySelector('#btnVisitPagepod span').textContent = dict.btnVisitPagepod;
+
+      document.getElementById('badgeProject2').textContent = dict.badgeProject2;
+      document.getElementById('descProject2').textContent = dict.descProject2;
+      document.getElementById('p2Feat1').textContent = dict.p2Feat1;
+      document.getElementById('p2Feat2').textContent = dict.p2Feat2;
+      document.getElementById('p2Feat3').textContent = dict.p2Feat3;
+      document.querySelector('#btnVisitAgentHtml span').textContent = dict.btnVisitAgentHtml;
+
+      document.getElementById('titlePhilosophy').textContent = dict.titlePhilosophy;
+      document.getElementById('descPhilosophy').textContent = dict.descPhilosophy;
+      document.getElementById('titleConnect').textContent = dict.titleConnect;
+      document.getElementById('descConnect').textContent = dict.descConnect;
+      document.getElementById('btnCopyText').textContent = dict.btnCopyText;
+
+      document.querySelector('.footer-left span').textContent = dict.footerCopyright;
+      document.getElementById('linkBackTop').textContent = dict.backTop;
+
+      try {
+        localStorage.setItem('portfolio-lang', lang);
+      } catch (e) {}
+    }
+
+    document.getElementById('btnZh').addEventListener('click', () => setLanguage('zh'));
+    document.getElementById('btnEn').addEventListener('click', () => setLanguage('en'));
+
+    // 读取持久化语言偏好
+    try {
+      const savedLang = localStorage.getItem('portfolio-lang');
+      if (savedLang === 'en' || savedLang === 'zh') {
+        setLanguage(savedLang);
+      }
+    } catch (e) {}
+
+    // -------------------------------------------------------------
+    // 主题切换 (Dark / Light Theme Toggle)
+    // -------------------------------------------------------------
+    const themeBtn = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // 默认保持深色质感，或根据偏好初始化
+    let currentTheme = 'dark';
+    try {
+      const savedTheme = localStorage.getItem('portfolio-theme');
+      if (savedTheme) {
+        currentTheme = savedTheme;
+      } else if (!prefersDark) {
+        currentTheme = 'light';
+      }
+    } catch (e) {}
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      try {
+        localStorage.setItem('portfolio-theme', nextTheme);
+      } catch (e) {}
+    });
+
+    // -------------------------------------------------------------
+    // 复制邮箱交互
+    // -------------------------------------------------------------
+    const btnCopyEmail = document.getElementById('btnCopyEmail');
+    const toastTip = document.getElementById('toastTip');
+
+    btnCopyEmail.addEventListener('click', () => {
+      const email = "hi@example.com"; // 替换为你的真实邮箱
+      navigator.clipboard.writeText(email).then(() => {
+        toastTip.textContent = i18n[currentLang].toastCopied;
+        toastTip.classList.add('show');
+        setTimeout(() => {
+          toastTip.classList.remove('show');
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
