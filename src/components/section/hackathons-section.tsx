@@ -1,10 +1,15 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { DATA } from "@/data/resume";
+import { useLanguage } from "@/components/language-provider";
 import { Timeline, TimelineItem, TimelineConnectItem } from "@/components/timeline";
 
 export default function HackathonsSection() {
+  const { language } = useLanguage();
+  const data = DATA[language];
+
   return (
     <section id="hackathons" className="overflow-hidden">
       <div className="flex min-h-0 flex-col gap-y-8 w-full">
@@ -19,14 +24,14 @@ export default function HackathonsSection() {
           <div className="flex flex-col gap-y-3 items-center justify-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">I like building things</h2>
             <p className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center">
-              During my time in university, I attended {DATA.hackathons.length}+
+              During my time in university, I attended {data.hackathons.length}+
               hackathons. People from around the country would come together and
               build incredible things in 2-3 days. It was eye-opening to see the endless possibilities brought to life by a group of motivated and passionate individuals.
             </p>
           </div>
         </div>
         <Timeline>
-          {DATA.hackathons.map((hackathon) => (
+          {data.hackathons.map((hackathon) => (
             <TimelineItem key={hackathon.title + hackathon.dates} className="w-full flex items-start justify-between gap-10">
               <TimelineConnectItem className="flex items-start justify-center">
                 {hackathon.image ? (

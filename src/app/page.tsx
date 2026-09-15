@@ -1,8 +1,11 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
+import { useLanguage } from "@/components/language-provider";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
@@ -14,6 +17,9 @@ import { ArrowUpRight } from "lucide-react";
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
+  const { language } = useLanguage();
+  const data = DATA[language];
+
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
@@ -21,21 +27,23 @@ export default function Page() {
           <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText
+                key={`greeting-${language}`}
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                text={language === "zh" ? `你好，我是 ${data.name}` : `Hi, I'm ${data.greetingName || data.name.split(" ")[0]}`}
               />
               <BlurFadeText
+                key={`desc-${language}`}
                 className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
                 delay={BLUR_FADE_DELAY}
-                text={DATA.description}
+                text={data.description}
               />
             </div>
             <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
               <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
+                <AvatarImage alt={data.name} src={data.avatarUrl} />
+                <AvatarFallback>{data.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
           </div>
@@ -44,22 +52,22 @@ export default function Page() {
       <section id="about">
         <div className="flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <h2 className="text-xl font-bold">About</h2>
+            <h2 className="text-xl font-bold">{data.sections.about}</h2>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
             <div className="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
               <Markdown>
-                {DATA.summary}
+                {data.summary}
               </Markdown>
             </div>
           </BlurFade>
         </div>
       </section>
-      {DATA.work && DATA.work.length > 0 && (
+      {data.work && data.work.length > 0 && (
         <section id="work">
           <div className="flex min-h-0 flex-col gap-y-6">
             <BlurFade delay={BLUR_FADE_DELAY * 5}>
-              <h2 className="text-xl font-bold">Work Experience</h2>
+              <h2 className="text-xl font-bold">{language === "zh" ? "工作经历" : "Work Experience"}</h2>
             </BlurFade>
             <BlurFade delay={BLUR_FADE_DELAY * 6}>
               <WorkSection />
@@ -67,14 +75,14 @@ export default function Page() {
           </div>
         </section>
       )}
-      {DATA.education && DATA.education.length > 0 && (
+      {data.education && data.education.length > 0 && (
         <section id="education">
           <div className="flex min-h-0 flex-col gap-y-6">
             <BlurFade delay={BLUR_FADE_DELAY * 7}>
-              <h2 className="text-xl font-bold">Education</h2>
+              <h2 className="text-xl font-bold">{language === "zh" ? "教育背景" : "Education"}</h2>
             </BlurFade>
             <div className="flex flex-col gap-8">
-              {DATA.education.map((education, index) => (
+              {data.education.map((education, index) => (
                 <BlurFade
                   key={education.school}
                   delay={BLUR_FADE_DELAY * 8 + index * 0.05}
@@ -120,10 +128,10 @@ export default function Page() {
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
+            <h2 className="text-xl font-bold">{data.sections.skills}</h2>
           </BlurFade>
           <div className="flex flex-wrap gap-2">
-            {DATA.skills.map((skill, id) => (
+            {data.skills.map((skill, id) => (
               <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
                   {skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
@@ -139,7 +147,7 @@ export default function Page() {
           <ProjectsSection />
         </BlurFade>
       </section>
-      {DATA.hackathons && DATA.hackathons.length > 0 && (
+      {data.hackathons && data.hackathons.length > 0 && (
         <section id="hackathons">
           <BlurFade delay={BLUR_FADE_DELAY * 13}>
             <HackathonsSection />
