@@ -5,7 +5,6 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
-import { useLanguage } from "@/components/language-provider";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
@@ -17,8 +16,7 @@ import { ArrowUpRight } from "lucide-react";
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
-  const { language } = useLanguage();
-  const data = DATA[language];
+  const data = DATA;
 
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
@@ -27,14 +25,14 @@ export default function Page() {
           <div className="gap-2 gap-y-6 flex flex-col md:flex-row justify-between">
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText
-                key={`greeting-${language}`}
+                key="greeting"
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
                 yOffset={8}
-                text={language === "zh" ? `你好，我是 ${data.name}` : `Hi, I'm ${data.greetingName || data.name.split(" ")[0]}`}
+                text={`Hi, I'm ${data.greetingName}`}
               />
               <BlurFadeText
-                key={`desc-${language}`}
+                key="desc"
                 className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
                 delay={BLUR_FADE_DELAY}
                 text={data.description}
@@ -70,7 +68,7 @@ export default function Page() {
         <section id="work">
           <div className="flex min-h-0 flex-col gap-y-6">
             <BlurFade delay={BLUR_FADE_DELAY * 5}>
-              <h2 className="text-xl font-bold">{language === "zh" ? "工作经历" : "Work Experience"}</h2>
+              <h2 className="text-xl font-bold">Work Experience</h2>
             </BlurFade>
             <BlurFade delay={BLUR_FADE_DELAY * 6}>
               <WorkSection />
@@ -82,7 +80,7 @@ export default function Page() {
         <section id="education">
           <div className="flex min-h-0 flex-col gap-y-6">
             <BlurFade delay={BLUR_FADE_DELAY * 7}>
-              <h2 className="text-xl font-bold">{language === "zh" ? "教育背景" : "Education"}</h2>
+              <h2 className="text-xl font-bold">Education</h2>
             </BlurFade>
             <div className="flex flex-col gap-8">
               {data.education.map((education, index) => (

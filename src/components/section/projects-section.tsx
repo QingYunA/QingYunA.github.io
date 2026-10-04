@@ -3,13 +3,11 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { ProjectCard } from "@/components/project-card";
 import { DATA } from "@/data/resume";
-import { useLanguage } from "@/components/language-provider";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function ProjectsSection() {
-    const { language } = useLanguage();
-    const data = DATA[language];
+    const data = DATA;
 
     return (
         <section id="projects">
@@ -38,7 +36,7 @@ export default function ProjectsSection() {
                         <BlurFade
                             key={project.title}
                             delay={BLUR_FADE_DELAY * 12 + id * 0.05}
-                            className="h-full"
+                            className={id === 0 ? "h-full sm:col-span-2" : "h-full"}
                         >
                             <ProjectCard
                                 href={project.href}

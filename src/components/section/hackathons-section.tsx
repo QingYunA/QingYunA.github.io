@@ -3,12 +3,10 @@
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { DATA } from "@/data/resume";
-import { useLanguage } from "@/components/language-provider";
 import { Timeline, TimelineItem, TimelineConnectItem } from "@/components/timeline";
 
 export default function HackathonsSection() {
-  const { language } = useLanguage();
-  const data = DATA[language];
+  const data = DATA;
 
   return (
     <section id="hackathons" className="overflow-hidden">

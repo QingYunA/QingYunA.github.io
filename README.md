@@ -1,24 +1,22 @@
-# Cyan's Personal Portfolio · 云辰的个人主页
+# Cyan's Portfolio
 
-> 👨‍💻 算法工程师 | 独立开发者 | 出海中 🚢  
-> ✍️ 梦想是改变世界  
-> 💻 agent html | Pagepod 开发者  
-> 🍚 me + ai = meal  
+Personal site and project showcase: https://qingyuna.github.io
 
-🌐 **Live URL**: [https://qingyuna.github.io](https://qingyuna.github.io)
+Built from the [magicuidesign/portfolio](https://github.com/magicuidesign/portfolio) template.
 
----
+- **Framework:** Next.js 16, React 19, TypeScript
+- **UI:** Tailwind CSS v4, shadcn/ui, Magic UI
+- **Hosting:** static export served by GitHub Pages from the `main` branch root
 
-### 🛠️ Tech Stack & Template
-- **Template**: Built with the official [magicuidesign/portfolio](https://github.com/magicuidesign/portfolio) template.
-- **Framework**: Next.js 16 + React 19 + TypeScript.
-- **Styling & UI**: Tailwind CSS v4 + shadcn/ui + Magic UI (Interactive Dock, FlickeringGrid, BlurFade).
-- **Deployment**: Automatic static export deployed to GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`).
+## Local development
 
-### 🚀 Local Development
 ```bash
 pnpm install
 pnpm dev
 ```
 
-To edit portfolio content, update [`src/data/resume.tsx`](./src/data/resume.tsx).
+Edit the site content in [`src/data/resume.tsx`](./src/data/resume.tsx).
+
+## Build and publish
+
+`next.config.mjs` sets `output: "export"`. Run `pnpm build`, then copy the contents of `out/` into the repository root and commit.

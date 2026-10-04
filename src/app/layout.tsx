@@ -1,6 +1,5 @@
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { LanguageProvider } from "@/components/language-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
@@ -9,18 +8,18 @@ import "./globals.css";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.zh.url),
+  metadataBase: new URL(DATA.url),
   title: {
-    default: DATA.zh.name,
-    template: `%s | ${DATA.zh.name}`,
+    default: DATA.name,
+    template: `%s | ${DATA.name}`,
   },
-  description: DATA.zh.description,
+  description: DATA.description,
   openGraph: {
-    title: `${DATA.zh.name}`,
-    description: DATA.zh.description,
-    url: DATA.zh.url,
-    siteName: `${DATA.zh.name}`,
-    locale: "zh_CN",
+    title: `${DATA.name}`,
+    description: DATA.description,
+    url: DATA.url,
+    siteName: `${DATA.name}`,
+    locale: "en_US",
     type: "website",
   },
   robots: {
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.zh.name}`,
+    title: `${DATA.name}`,
     card: "summary_large_image",
   },
   verification: {
@@ -57,7 +56,6 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <LanguageProvider>
             <TooltipProvider delayDuration={0}>
               <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
                 <FlickeringGrid
@@ -75,7 +73,6 @@ export default function RootLayout({
               </div>
               <Navbar />
             </TooltipProvider>
-          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

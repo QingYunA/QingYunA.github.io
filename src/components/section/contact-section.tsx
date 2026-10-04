@@ -4,18 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { DATA } from "@/data/resume";
-import { useLanguage } from "@/components/language-provider";
 import { Mail, Copy, Check, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function ContactSection() {
-  const { language } = useLanguage();
-  const data = DATA[language];
+  const data = DATA;
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = async () => {
     try {
-      await navigator.clipboard.writeText("serein7z@163.com");
+      await navigator.clipboard.writeText(data.contact.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (e) {}
@@ -51,7 +49,7 @@ export default function ContactSection() {
         <div className="flex flex-col sm:flex-row items-center gap-3 p-2 px-3 border bg-background/80 rounded-xl shadow-xs">
           <div className="flex items-center gap-2 px-2 text-foreground font-mono text-sm font-medium">
             <Mail className="size-4 text-muted-foreground" />
-            <span>serein7z@163.com</span>
+            <span>{data.contact.email}</span>
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -81,16 +79,16 @@ export default function ContactSection() {
               size="sm"
               className="h-8 px-3 text-xs gap-1.5 bg-primary text-primary-foreground hover:opacity-90"
             >
-              <a href="mailto:serein7z@163.com">
+              <a href={`mailto:${data.contact.email}`}>
                 <Send className="size-3.5" />
-                <span>{language === "zh" ? "写信" : "Send Mail"}</span>
+                <span>Send Mail</span>
               </a>
             </Button>
           </div>
         </div>
 
         <p className="text-xs text-muted-foreground mt-1">
-          {language === "zh" ? "亦可通过 " : "Or connect via "}
+          {"Or connect via "}
           <Link
             href={data.contact.social.X.url}
             target="_blank"
@@ -99,7 +97,7 @@ export default function ContactSection() {
           >
             X (@smk7z)
           </Link>
-          {language === "zh" ? " 给我发送私信。" : " for direct messaging."}
+           {" for direct messaging."}
         </p>
       </div>
     </div>

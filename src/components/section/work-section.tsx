@@ -8,7 +8,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { DATA } from "@/data/resume";
-import { useLanguage } from "@/components/language-provider";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -32,8 +31,7 @@ function LogoImage({ src, alt }: { src: string; alt: string }) {
 }
 
 export default function WorkSection() {
-  const { language } = useLanguage();
-  const data = DATA[language];
+  const data = DATA;
 
   return (
     <Accordion type="single" collapsible className="w-full grid gap-6">

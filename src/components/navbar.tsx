@@ -2,8 +2,6 @@
 
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { ModeToggle } from "@/components/mode-toggle";
-import { LanguageToggle } from "@/components/language-toggle";
-import { useLanguage } from "@/components/language-provider";
 import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
@@ -14,8 +12,7 @@ import {
 import { DATA } from "@/data/resume";
 
 export default function Navbar() {
-  const { language } = useLanguage();
-  const data = DATA[language];
+  const data = DATA;
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30">
@@ -83,22 +80,6 @@ export default function Navbar() {
           orientation="vertical"
           className="h-2/3 m-auto w-px bg-border"
         />
-        {/* 双语切换 */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
-              <LanguageToggle className="size-full cursor-pointer" />
-            </DockIcon>
-          </TooltipTrigger>
-          <TooltipContent
-            side="top"
-            sideOffset={8}
-            className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
-          >
-            <p>{language === "zh" ? "切换为 English" : "切换为中文"}</p>
-            <TooltipArrow className="fill-primary" />
-          </TooltipContent>
-        </Tooltip>
         {/* 明暗模式 */}
         <Tooltip>
           <TooltipTrigger asChild>
@@ -111,7 +92,7 @@ export default function Navbar() {
             sideOffset={8}
             className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
           >
-            <p>{language === "zh" ? "切换明暗主题" : "Theme"}</p>
+            <p>Theme</p>
             <TooltipArrow className="fill-primary" />
           </TooltipContent>
         </Tooltip>
